@@ -14,10 +14,18 @@ import java.io.IOException;
 @Component
 public class MoviesManager {
 
+    public List<Movie> getTopMovies() throws IOException {
+        return extractMoviesFromJsonString(MovieQueries.getTopRatedMovies());
+    }
+
     public List<Movie> getPopularMovies() throws IOException {
+        return extractMoviesFromJsonString(MovieQueries.getPopularMovies());
+    }
+
+    private List<Movie> extractMoviesFromJsonString(String jsonString) {
         List<Movie> movies = new ArrayList<>();
 
-        JSONObject object = new JSONObject(MovieQueries.getPopularMovies());
+        JSONObject object = new JSONObject(jsonString);
         JSONArray results = object.getJSONArray("results");
         int n = results.length();
         JSONObject movieJsonObject;

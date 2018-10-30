@@ -16,6 +16,12 @@ public class MoviesController {
 
     @Autowired private MoviesManager moviesManager;
 
+    @RequestMapping(value = "/top", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Movie> getTopMovies() throws IOException {
+        return moviesManager.getTopMovies();
+    }
+
     @RequestMapping(value = "/popular", method = RequestMethod.GET)
     @ResponseBody
     public List<Movie> getPopularMovies() throws IOException {
