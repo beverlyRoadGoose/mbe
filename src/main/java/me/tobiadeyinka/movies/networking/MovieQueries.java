@@ -11,16 +11,16 @@ public class MovieQueries {
     private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
 
     private static final String POPULAR_MOVIES_ENDPOINT = String.format(
-        "%spopular?api_key=%s&language=en-US&page=1", BASE_URL, MOVIE_DB_API_KEY
+        "%spopular?api_key=%s&language=en-US&page=", BASE_URL, MOVIE_DB_API_KEY
     );
 
     private static final String TOP_RATED_MOVIES_ENDPOINT = String.format(
-        "%stop_rated?api_key=%s&language=en-US&page=1", BASE_URL, MOVIE_DB_API_KEY
+        "%stop_rated?api_key=%s&language=en-US&page=", BASE_URL, MOVIE_DB_API_KEY
     );
 
-    public static String getPopularMovies() throws IOException {
+    public static String getPopularMovies(int page) throws IOException {
         try {
-            URL url = new URL(POPULAR_MOVIES_ENDPOINT);
+            URL url = new URL(POPULAR_MOVIES_ENDPOINT + page);
             return query(url);
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -29,9 +29,9 @@ public class MovieQueries {
         return null;
     }
 
-    public static String getTopRatedMovies() throws IOException {
+    public static String getTopRatedMovies(int page) throws IOException {
         try {
-            URL url = new URL(TOP_RATED_MOVIES_ENDPOINT);
+            URL url = new URL(TOP_RATED_MOVIES_ENDPOINT + page);
             return query(url);
         } catch (MalformedURLException e) {
             e.printStackTrace();

@@ -15,11 +15,19 @@ import java.io.IOException;
 public class MoviesManager {
 
     public List<Movie> getTopMovies() throws IOException {
-        return extractMoviesFromJsonString(MovieQueries.getTopRatedMovies());
+        return extractMoviesFromJsonString(MovieQueries.getTopRatedMovies(1));
+    }
+
+    public List<Movie> getTopMovies(int page) throws IOException {
+        return extractMoviesFromJsonString(MovieQueries.getTopRatedMovies(page));
     }
 
     public List<Movie> getPopularMovies() throws IOException {
-        return extractMoviesFromJsonString(MovieQueries.getPopularMovies());
+        return extractMoviesFromJsonString(MovieQueries.getPopularMovies(1));
+    }
+
+    public List<Movie> getPopularMovies(int page) throws IOException {
+        return extractMoviesFromJsonString(MovieQueries.getPopularMovies(page));
     }
 
     private List<Movie> extractMoviesFromJsonString(String jsonString) {
