@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 public class MovieQueries {
 
-    private static final String MOVIE_DB_API_KEY = System.getenv("MOVIE_DB_API_ENV");
+    private static final String MOVIE_DB_API_KEY = System.getenv("MOVIE_DB_API_KEY");
     private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
 
     private static final String POPULAR_MOVIES_ENDPOINT = String.format(
