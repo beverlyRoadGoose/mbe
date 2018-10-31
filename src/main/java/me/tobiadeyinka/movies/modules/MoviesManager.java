@@ -1,6 +1,7 @@
 package me.tobiadeyinka.movies.modules;
 
 import me.tobiadeyinka.movies.entities.Movie;
+import me.tobiadeyinka.movies.entities.Trailer;
 import me.tobiadeyinka.movies.networking.MovieQueries;
 
 import org.json.JSONArray;
@@ -28,6 +29,33 @@ public class MoviesManager {
 
     public List<Movie> getPopularMovies(int page) throws IOException {
         return extractMoviesFromJsonString(MovieQueries.getPopularMovies(page));
+    }
+
+    public Movie getMovie(int movieId) throws IOException {
+        JSONObject movie = new JSONObject(MovieQueries.getMovieDetails(movieId));
+        return new Movie(
+            movieId,
+            movie.getString("title"),
+            movie.getString("release_date"),
+            movie.getString("poster_path"),
+            movie.getString("overview")
+        );
+    }
+
+    public Trailer getMovieTrailer(int movieId) throws IOException {
+        JSONObject object = new JSONObject(MovieQueries.getMovieVideos(movieId));
+        JSONArray results = object.getJSONArray("results");
+        int n = results.length();
+        JSONObject videoJsonObject;
+
+        for (int i = 0; i < n; i++) {
+            videoJsonObject = results.getJSONObject(i);
+            if (videoJsonObject.getString("type").equals("Trailer") && videoJsonObject.getString("site").equals("YouTube")) {
+                return new Trailer(movieId, videoJsonObject.getString("key"));
+            }
+        }
+
+        return null;
     }
 
     private List<Movie> extractMoviesFromJsonString(String jsonString) {

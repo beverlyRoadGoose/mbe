@@ -1,6 +1,7 @@
 package me.tobiadeyinka.movies.controllers;
 
 import me.tobiadeyinka.movies.entities.Movie;
+import me.tobiadeyinka.movies.entities.Trailer;
 import me.tobiadeyinka.movies.modules.MoviesManager;
 
 import org.springframework.http.MediaType;
@@ -32,6 +33,18 @@ public class MoviesController {
     @ResponseBody
     public List<Movie> getPopularMovies() throws IOException {
         return moviesManager.getPopularMovies();
+    }
+
+    @RequestMapping(value = "/{movieId}/trailer", method = RequestMethod.GET)
+    @ResponseBody
+    public Trailer getMovieTrailer(@PathVariable int movieId) throws IOException {
+        return moviesManager.getMovieTrailer(movieId);
+    }
+
+    @RequestMapping(value = "/{movieId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Movie getMovie(@PathVariable int movieId) throws IOException {
+        return moviesManager.getMovie(movieId);
     }
 
     @RequestMapping(value = "/popular/{page}", method = RequestMethod.GET)
